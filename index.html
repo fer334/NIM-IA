@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <!-- insert index.js -->
+    <script src="index.js"></script>
+</head>
+<body onload="main()">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="header">
+                            <!-- h1 with bootstrap text color white -->
+
+                            <h1 class="display-4">
+                                <!-- <i class="fas fa-shopping-cart"></i> -->
+                                NIM Game
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="cart-container">
+                            <div class="cart-item">
+                                <div class="cart-item-img">
+                                    <img src="img/product-1.jpg" alt="">
+                                </div>
+                                <div class="cart-item-info">
+                                    <h3 id="playerTurn">Player 1 turns</h3>
+                                    <div class="game">
+                                        <!-- <button class="shrink-border">x</button> -->
+                                    </div>
+                                    <p>$10.00</p>
+                                    <p>Quantity: 1</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="cart-container">
+                            <button id="nextTurn" class="btn btn-dark">End turn</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
