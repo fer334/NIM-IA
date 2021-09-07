@@ -42,6 +42,7 @@ button::after, button::before {
 }
 
 .shrink-border {
+  /* min-width: 10px; */
   background-color: transparent;
   color: rgba(0,0,0,0);
 }
@@ -80,4 +81,18 @@ button::after, button::before {
 .shrink-border:hover::after {
   opacity: 1;
   transform: scaleX(1) scaleY(1);
+}
+
+.hdiv{
+  overflow: auto;
+  overflow-y: hidden;
+  margin: 0 auto;
+  white-space: nowrap
+}
+
+.game{
+
+  /* border:solid 1px black; */
+  display:inline-block;
+  /* vertical-align: top; */
 }
