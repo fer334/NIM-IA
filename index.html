@@ -21,21 +21,57 @@
                             <!-- h1 with bootstrap text color white -->
 
                             <h1 class="display-4">
-                                <!-- <i class="fas fa-shopping-cart"></i> -->
                                 NIM Game
+                                <i class="fas fa-gamepad"></i>
                             </h1>
+                            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+ 
                         </div>
                     </div>
+                </div>
+                <hr class="my-4">
+                <!-- // bootstrap aling row to right -->
+                <div id="options">
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <div class="row  d-flex justify-content-center">
+                                <span class="px-3">Game mode:</span>
+                                <div class="dropdown dropdown-dark">
+                                    <select name="two" id="mode" class="dropdown-select">
+                                        <option value="1">1v1</option>
+                                        <option value="2">1vAI-Random</option>
+                                        <!-- <option value="3"> :| </option> -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row  d-flex justify-content-center">
+                                <span class="px-3">First move:</span>
+                                <div class="dropdown dropdown-dark">
+                                    <select name="" id="fmove" class="dropdown-select">
+                                        <option value="0" default>Not works!!</option>
+                                        <option value="1">Player 1</option>
+                                        <option value="2">Player 2</option>
+                                        <!-- <option value="3"> :| </option> -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="text-center pt-4">
+                                <button class="btn btn-dark align-center" id="start">start!</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4">
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="cart-container">
                             <div class="cart-item">
-                                <div class="cart-item-img">
-                                    <img src="img/product-1.jpg" alt="">
-                                </div>
                                 <div class="cart-item-info">
-                                    <h3 id="playerTurn">Player 1 turns</h3>
+                                    <h3 id="playerTurn"></h3>
                                     <div class="hdiv">
                                         <div class="game"></div>
                                         <!-- <button class="shrink-border">x</button> -->

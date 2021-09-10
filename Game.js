@@ -35,13 +35,17 @@ const getElementForRow = (row, col) => {
 
 class Game {
   aiTurn = 1;
+  started = false;
 
-  constructor(rows, mode) {
+  turn = 0;
+  rowPlayed = -1;
+
+  constructor(rows, mode='1v1') {
     this.rows = rows;
-    this.turn = 0;
-    this.rowPlayed = -1;
-    this.ai = new AI();
     this.mode = mode;
+    if(mode != "1v1"){
+      this.ai = new AI();
+    }
   }
 
   take(row, count) {
@@ -60,6 +64,7 @@ class Game {
 
   prepareNextTurn() {
     const handle1v1 = () => {
+      this.started = true
       if (this.rowPlayed == -1) {
         alert("no row played");
       } else {
@@ -73,6 +78,7 @@ class Game {
       }
     };
     const handle1vAI = () => {
+      this.started = true
       if (this.turn != this.aiTurn) {
         if (this.rowPlayed == -1) {
           alert("no row played");
@@ -92,8 +98,10 @@ class Game {
       }
     };
     if (this.mode == "1v1") {
+      document.getElementById("playerTurn").innerHTML = `Player ${1+this.turn} turns`;
       document.getElementById("nextTurn").addEventListener("click", handle1v1);
     } else {
+      document.getElementById("playerTurn").innerHTML = this.aiTurn ?  "Player turns": "IA turns";
       document.getElementById("nextTurn").addEventListener("click", handle1vAI);
     }
   }
