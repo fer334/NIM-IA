@@ -104,19 +104,6 @@ button::after, button::before {
  *
  */
 
- /*
- * Copyright (c) 2012-2013 Thibaut Courouble
- * http://www.cssflow.com
- *
- * Licensed under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- *
- * View the Sass/SCSS source at:
- * http://www.cssflow.com/snippets/dark-and-light-dropdown-lists/demo/scss
- *
- * Original PSD by Hemn Chawroka: http://goo.gl/nXZHJ
- */
-
 
 .container > .dropdown {
   margin: 0 20px;
