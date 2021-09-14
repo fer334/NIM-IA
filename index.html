@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>NIM GAME</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -33,9 +33,9 @@
                 <!-- // bootstrap aling row to right -->
                 <div id="options">
                     <div class="row" >
-                        <div class="col-md-6">
-                            <div class="row  d-flex justify-content-center">
-                                <span class="px-3">Game mode:</span>
+                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                            <div class="row" style="width:350px" >
+                                <span class="px-3 ml-auto">Game mode:</span>
                                 <div class="dropdown dropdown-dark">
                                     <select name="two" id="mode" class="dropdown-select">
                                         <option value="1">1v1</option>
@@ -45,9 +45,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="row  d-flex justify-content-center">
-                                <span class="px-3">First move:</span>
+                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                            <div class="row" style="width:350px" >
+                                <span class="px-3 ml-auto">First move:</span>
                                 <div class="dropdown dropdown-dark">
                                     <select name="" id="fmove" class="dropdown-select">
                                         <option value="0" default>Not works!!</option>
@@ -55,6 +55,23 @@
                                         <option value="2">Player 2</option>
                                         <!-- <option value="3"> :| </option> -->
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                            <div class="row" style="width:350px" >
+                                <span class="px-3 ml-auto">Rows (n):</span>
+                                <div>
+                                    <input class="input-dark" type="number" value="4"></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                            <div class="row" style="width:350px" >
+                                <span class="px-3 ml-auto">Objects (k):</span>
+                                <div >
+                                    <input class="input-dark" type="number" value="4"></input>
+
                                 </div>
                             </div>
                         </div>
