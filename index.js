@@ -4,13 +4,17 @@ import Game from "./Game.js";
 const startGame = (e) => {
   const rows = [1, 3, 5, 7, 9];
   const mode = document.getElementById("mode").value;
+  let m = "";
+
   if (mode == 1){
-    const game = new Game(rows, '1v1');
-    game.start();
+    m = "1v1";
   }else if (mode == 2){
-    const game = new Game(rows, 'random');
-    game.start();
+    m = "random";
   }
+  
+  const game = new Game(rows, m);
+  game.start();
+
   // hide options div
   e.target.parentElement.style.display = 'none';
 }
