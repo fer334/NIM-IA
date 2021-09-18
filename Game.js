@@ -33,6 +33,15 @@ const getElementForRow = (row, col) => {
   return elements;
 };
 
+const generateRows= (n,k) => {
+  const rows = [];
+  for (let i = 0; i < n; i++) {
+    rows.push(Math.floor(Math.random()*k)+1)
+    
+  }
+  return rows;
+}
+
 class Game {
   aiTurn = 1;
   started = false;
@@ -40,8 +49,10 @@ class Game {
   turn = 0;
   rowPlayed = -1;
 
-  constructor(rows, mode='1v1') {
-    this.rows = rows;
+  constructor(mode='1v1',n,k) {
+    console.log(mode,n,k);
+    this.rows = generateRows(n,k);
+    console.log(this.rows);
     this.mode = mode;
     if(mode != "1v1"){
       this.ai = new AI();
@@ -150,4 +161,7 @@ class Game {
     }
   }
 }
+
+// console.log("Game.js loaded");
+// console.log(generateRows(5,5));
 export default Game;
