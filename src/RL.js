@@ -14,7 +14,7 @@ class RLAgent{
     }
     
     updateAlpha(currentGame,N){
-        this.alpha = 0.5 - 0.49 * currentGame / N;
+        this.alpha = 1 - 0.99 * currentGame / N;
     }
 
     // play random
@@ -27,6 +27,7 @@ class RLAgent{
         
         const newState = [...this.state]
         newState[action[0]] -= action[1];
+        this.state = [...newState]
         return newState;
     }
 
@@ -35,16 +36,21 @@ class RLAgent{
         // 0--- Perdes
         let reward = 0;
         if (win(state)) {
+            // console.log('gano')
             reward = 1
         }else if (lose(state)){
+            // console.log('perdio')
             reward = 0
         }else{
             const stateKey = JSON.stringify(state);
-            if (this.lookTable[stateKey] === undefined){
+            //console.log(`LookTable ${this.lookTable[stateKey]}`,isNaN(this.lookTable[stateKey]))
+            if (isNaN(this.lookTable[stateKey])){
+                //console.log("Heeer")
                 this.lookTable[stateKey] = 0.5;
-                reward = 0.5;
-            }else{
                 reward = this.lookTable[stateKey];
+                //!reward && (console.log(`StateKey ${stateKey}`))
+            }else{
+                reward=this.lookTable[stateKey]
             }
         }
         // console.log('reward',reward);
@@ -80,7 +86,7 @@ class RLAgent{
                 bestState = [...newState];
             }
         }
-
+        // reward==1 ? console.log("Gane") : console.log("Perdi")
         // play
         this.state = [...bestState]
         
@@ -96,9 +102,11 @@ class RLAgent{
     updateLookTable(state, reward){  
         // vi=vi+alpha(vsgte-vi)   
         let prob = this.calculateReward(state)
+        //console.log(`prob ${prob} aplha ${this.alpha} reward ${reward} state ${state}`)
         prob = prob + this.alpha * (reward - prob);
 
         const key = JSON.stringify(state)
+        //console.log("Prob",prob)
         this.lookTable[key] = prob
 
     }
@@ -113,13 +121,13 @@ class RLAgent{
         }
     }
 
-    loose(){
-        const key = JSON.stringify(this.state)
+    lose(state){
+        const key = JSON.stringify(state)
         this.lookTable[key] = 0
     }
 
-    win(){
-        const key = JSON.stringify(this.state)
+    win(state){
+        const key = JSON.stringify(state)
         this.lookTable[key] = 1
     }
 }

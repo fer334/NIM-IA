@@ -5,28 +5,36 @@ class Main{
     constructor(N){
         this.N=N
     }
+    gameEnd(state){
+        
+        return state.every((i)=>i==0)
+    }
 
-    jugarVsRandom(initialState){
+    jugarVsRandom(initialState, rl){
 
         let state = [...initialState]
-        const rl = new RLAgent(0.1, 0.1, state)
+        rl.state = state
         let turn=1
+        let lastState
         while(true){
-            if(gameEnd()){
+            // console.log(`Jugada: ${state}`);
+            if(this.gameEnd(state)){
                 //actualizar el lookTable
+                if(turn == 0)
+                    rl.lose(lastState)
+                else    
+                    rl.win(state) ///0.0
                 break;
             }
-            rl.setState = state
             // rl.updateAlpha(this.N-i, this.N)
-            if(turn) state = rl.play(state)
-            else state = rl.playDiversity(state)
+            lastState = [...state]
+            if(turn) state = rl.play()
+            else state = rl.playDiversity()
+            state = rl.state
             turn=(turn+1)%2
         }
-
-        if(turn == 1)
-            rl.win()
-        else
-            rl.loose()
+        // console.log('gano', turn)
+        
 
     }
     jugarVsMiniMax(){
@@ -34,13 +42,20 @@ class Main{
     }
 
     train(){
+        const state = [2,3]
+        const rl = new RLAgent(0.1, 0.1, state)
+        
         for (let i = 0; i < this.N; i++) {
-            
-            
+            const initialState = [...state]
+            rl.updateAlpha(i,this.N)
+            this.jugarVsRandom(initialState,rl)
         }
+         console.log(rl.lookTable)
     }
     
 }
 
 
-m = Main(10)
+const m = new Main(100000)
+m.train()
+
