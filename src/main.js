@@ -11,26 +11,26 @@ class Main{
     }
 
     jugarVsRandom(initialState, rl){
-
         let state = [...initialState]
         rl.state = state
         let turn=1
         let lastState
         while(true){
-            // console.log(`Jugada: ${state}`);
-            if(this.gameEnd(state)){
-                //actualizar el lookTable
-                if(turn == 0)
-                    rl.lose(lastState)
-                else    
-                    rl.win(state) ///0.0
-                break;
-            }
-            // rl.updateAlpha(this.N-i, this.N)
             lastState = [...state]
             if(turn) state = rl.play()
             else state = rl.playDiversity()
             state = rl.state
+
+            if(this.gameEnd(state)){
+                //actualizar el lookTable
+                if(turn == 0){
+                    console.log('lastState', lastState, 'action', rl.action);
+                    rl.lose(lastState)
+                }
+                else    
+                    rl.win(lastState) ///0.0
+                break;
+            }
             turn=(turn+1)%2
         }
         // console.log('gano', turn)
@@ -56,6 +56,6 @@ class Main{
 }
 
 
-const m = new Main(100000)
+const m = new Main(1)
 m.train()
 

@@ -1,7 +1,7 @@
 
 
-const win = (state) =>{ return state?.every(x => x === 0)};
-const lose = (state) => state.filter(x=>x!==0).length==1
+const iswin = (state) =>{ return state?.every(x => x === 0)};
+const islose = (state) => state.filter(x=>x!==0).length==1 //0.0,5,0  1=1
 
 class RLAgent{
     isTrain = true
@@ -24,29 +24,29 @@ class RLAgent{
         const action = succesors[random]
         
         //actualizamos el lookTable?
-        
         const newState = [...this.state]
         newState[action[0]] -= action[1];
+        console.log(`New State ${newState} from action ${action} state ${this.state}`)
         this.state = [...newState]
+        this.action = [...action]
         return newState;
     }
 
-    calculateReward(state){
+    calculateReward(state,action){
         // 1---Ganas
         // 0--- Perdes
         let reward = 0;
-        if (win(state)) {
+        let newState=[...state]
+        newState[action[0]]-=action[1]
+        if (iswin(newState)) {
             // console.log('gano')
             reward = 1
-        }else if (lose(state)){
-            // console.log('perdio')
-            reward = 0
         }else{
-            const stateKey = JSON.stringify(state);
+            const stateKey = JSON.stringify(state)+JSON.stringify(action);
             //console.log(`LookTable ${this.lookTable[stateKey]}`,isNaN(this.lookTable[stateKey]))
             if (isNaN(this.lookTable[stateKey])){
                 //console.log("Heeer")
-                this.lookTable[stateKey] = 0.5;
+                this.lookTable[stateKey] = 0;
                 reward = this.lookTable[stateKey];
                 //!reward && (console.log(`StateKey ${stateKey}`))
             }else{
@@ -65,12 +65,14 @@ class RLAgent{
                 succesors.push([i,j])
             }
         }
+        // console.log('state',this.state,'succesors',succesors);
         return succesors
     }
     
     playElitist(){
         let maxReward = -999;
         let bestState=[];
+        let bestAction=[];
         let succesors = this.getSucesors()
         // console.log('succesors',succesors);
         const lastState = [...this.state]
@@ -80,18 +82,20 @@ class RLAgent{
             // console.log('s',s);
             newState[s[0]] -= s[1]
         
-            const reward = this.calculateReward(newState);
+            const reward = this.calculateReward(lastState,s);
             if (reward > maxReward) {
                 maxReward = reward;
                 bestState = [...newState];
+                bestAction = [...s];
             }
         }
         // reward==1 ? console.log("Gane") : console.log("Perdi")
         // play
         this.state = [...bestState]
+        this.action = [...bestAction]
         
         if (this.isTrain){
-            this.updateLookTable(lastState, maxReward)
+            this.updateLookTable(lastState, bestAction, maxReward)
         }
 
         // console.log('bestState',bestState);
@@ -99,13 +103,13 @@ class RLAgent{
         return bestState;
     }
 
-    updateLookTable(state, reward){  
+    updateLookTable(state, action, reward){  
         // vi=vi+alpha(vsgte-vi)   
-        let prob = this.calculateReward(state)
+        let prob = this.calculateReward(state,action)
         //console.log(`prob ${prob} aplha ${this.alpha} reward ${reward} state ${state}`)
         prob = prob + this.alpha * (reward - prob);
 
-        const key = JSON.stringify(state)
+        const key = JSON.stringify(state)+JSON.stringify(action)
         //console.log("Prob",prob)
         this.lookTable[key] = prob
 
@@ -122,13 +126,13 @@ class RLAgent{
     }
 
     lose(state){
-        const key = JSON.stringify(state)
-        this.lookTable[key] = 0
+        const key = JSON.stringify(state) + JSON.stringify(this.action)
+        this.lookTable[key] = -1
     }
 
     win(state){
-        const key = JSON.stringify(state)
-        this.lookTable[key] = 1
+        const key = JSON.stringify(state) + JSON.stringify(this.action)
+        this.lookTable[key] = 1 
     }
 }
 export default RLAgent;
