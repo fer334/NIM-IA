@@ -17,25 +17,51 @@ class RLAgent{
         this.alpha = 1 - 0.99 * currentGame / N;
     }
 
+    get_value(state,action){
+        const stateKey = JSON.stringify(state)+JSON.stringify(action);
+        if (isNaN(this.lookTable[stateKey])) return 0
+        else return this.lookTable[stateKey]
+    }
+    best_future_reward(newState){
+        let succesors=this.getSucesors(newState)
+        let max=0
+        for (let s of succesors){
+            let newReward=this.get_value(newState,s)
+            max = newReward>max ? newReward : max
+        }   
+        return max
+    }
+    update_q_value(oldState,action,old_q,reward,future_reward){
+            const stateKey = JSON.stringify(oldState)+JSON.stringify(action);
+            let prob=old_q+this.alpha*((future_reward+reward)-old_q)
+            this.lookTable[stateKey]=prob
+            return prob
+    }
+    update(oldState,action,newState,reward){
+            let old=this.get_value(oldState,action)
+            let bestFuture=this.best_future_reward(newState)
+            this.update_q_value(oldState,action,old,reward,bestFuture)
+    }
     // play random
     playDiversity(){
-        const succesors = this.getSucesors(); 
+        const succesors = this.getSucesors(this.state); 
         const random = Math.floor(Math.random() * succesors.length)
         const action = succesors[random]
         
         //actualizamos el lookTable?
+        const lastState=[...this.state]
         const newState = [...this.state]
         newState[action[0]] -= action[1];
-        console.log(`New State ${newState} from action ${action} state ${this.state}`)
+        //console.log(`New State ${newState} from action ${action} state ${this.state}`)
         this.state = [...newState]
-        this.action = [...action]
-        return newState;
+        return [lastState,action];
     }
 
     calculateReward(state,action){
         // 1---Ganas
         // 0--- Perdes
         let reward = 0;
+        //console.log('state',state,'action',action)
         let newState=[...state]
         newState[action[0]]-=action[1]
         if (iswin(newState)) {
@@ -45,10 +71,10 @@ class RLAgent{
             const stateKey = JSON.stringify(state)+JSON.stringify(action);
             //console.log(`LookTable ${this.lookTable[stateKey]}`,isNaN(this.lookTable[stateKey]))
             if (isNaN(this.lookTable[stateKey])){
-                //console.log("Heeer")
-                this.lookTable[stateKey] = 0;
-                reward = this.lookTable[stateKey];
-                //!reward && (console.log(`StateKey ${stateKey}`))
+                ///aca comente
+                //this.lookTable[stateKey] = 0;
+                //reward = this.lookTable[stateKey];
+                reward=0
             }else{
                 reward=this.lookTable[stateKey]
             }
@@ -57,15 +83,15 @@ class RLAgent{
         return reward;
     }
     
-    getSucesors(){
+    getSucesors(state){
         // [1,2,3,4]=>[1,1,2,1,2,3,1,2,3,4] 
         const succesors = []
-        for (let i = 0; i < this.state.length; i++) {
-            for (let j = 1; j <= this.state[i]; j++) { 
+        for (let i = 0; i < state.length; i++) {
+            for (let j = 1; j <= state[i]; j++) { 
                 succesors.push([i,j])
             }
         }
-        // console.log('state',this.state,'succesors',succesors);
+        //console.log('state',this.state,'succesors',succesors);
         return succesors
     }
     
@@ -73,7 +99,7 @@ class RLAgent{
         let maxReward = -999;
         let bestState=[];
         let bestAction=[];
-        let succesors = this.getSucesors()
+        let succesors = this.getSucesors(this.state)
         // console.log('succesors',succesors);
         const lastState = [...this.state]
 
@@ -81,26 +107,45 @@ class RLAgent{
             const newState = [...this.state]   //[2,3,4] ==>[1,3,4],[0,3,4]
             // console.log('s',s);
             newState[s[0]] -= s[1]
-        
-            const reward = this.calculateReward(lastState,s);
+            const reward = this.get_value(lastState,s); //aca tambien comente
             if (reward > maxReward) {
                 maxReward = reward;
                 bestState = [...newState];
                 bestAction = [...s];
             }
         }
+        /////-----Feeer
+        /*
+        maxReward=0;
+        const futures = this.getSucesors(bestState)
+        for(let s of futures){
+            const newState = [...this.bestState]   //[2,3,4] ==>[1,3,4],[0,3,4]
+            // console.log('s',s);
+            newState[s[0]] -= s[1]
+            const reward = this.calculateReward(lastState,s);
+            if (reward > maxReward) {
+                maxReward = reward;
+            }
+        }
+        */
+
+
         // reward==1 ? console.log("Gane") : console.log("Perdi")
         // play
         this.state = [...bestState]
         this.action = [...bestAction]
         
+        /*
         if (this.isTrain){
             this.updateLookTable(lastState, bestAction, maxReward)
         }
+        */
+
 
         // console.log('bestState',bestState);
         // console.log('looktable',this.lookTable);
-        return bestState;
+        //console.log(`Heere Elitista ${lastState} --${bestAction} `)
+        return [lastState,bestAction];
     }
 
     updateLookTable(state, action, reward){  
@@ -117,12 +162,16 @@ class RLAgent{
 
     play(){
         // 0.1 - 0.9
-        const q = Math.random()
-        if (q <= this.qRate){
-            this.playElitist()
+        let q = Math.random()
+        let state,action
+        if (q <= this.qRate ){
+            [state,action]=this.playElitist()
         }else{
-            this.playDiversity()
+            //console.log(`Aleatorio ${q}`)
+            [state,action]= this.playDiversity()
         }
+        //console.log(`In playy ${state}--${action}`)
+        return [state,action]
     }
 
     lose(state){

@@ -69,21 +69,27 @@ const miniMaxValue=(state,previusNodeFactor)=>{
     
 }
 const miniMaxDesicion=(initialState,start)=>{
-    console.log(`Calculando la solucion, espere un momento...`)
+    console.log(`Calculando la solucion, espere un momento...`,initialState)
     if (start==1)miniMaxValue([...initialState],-1)
     else miniMaxValue(initialState,1)
     let nextNode=1
     console.log("---------Solucion Encontrada por Mini Max----------")
-    console.log(`Estado Inicial [${initialState}] con SumNim ${calculateHeuristhic(initialState)}`)
+    //console.log(`Estado Inicial [${initialState}] con SumNim ${calculateHeuristhic(initialState)}`)
     while(nextNode){
         let value=nodes.find((item)=>item.current_id==nextNode)
         nextNode= value ? value.nextNode : undefined
-        nextNode && (console.log(`Se saca ${value.amount} fichas de la fila ${value.row +1}, mi estado sgte sera [${value.x}] con sumNim=${calculateHeuristhic(value.x)} -------Nodo ${start==1?"Max":"Min"} `))
+        //nextNode && (console.log(`Se saca ${value.amount} fichas de la fila ${value.row +1}, mi estado sgte sera [${value.x}] con sumNim=${calculateHeuristhic(value.x)} -------Nodo ${start==1?"Max":"Min"} `))
         start*=-1
     }
-    console.log(`Cantidad de Nodos Visitados ${nodeAmount}`)
-
+    //console.log(`Cantidad de Nodos Visitados ${nodeAmount}`)
+    let desicion=nodes.find((item)=>item.current_id==1)
+    let state=initialState
+    let action=[desicion.row,desicion.amount]
+    console.log(`State ${state} Action ${action}`)
+    return [state,action]
 }
 
 
-miniMaxDesicion(InitialState,1)
+console.log('Heer')
+//miniMaxDesicion([0,0,0],1)
+export  {miniMaxDesicion};
