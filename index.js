@@ -1,4 +1,5 @@
 import Game from "./Game.js";
+import { depthMax } from "./src/global.js";
 
 
 const startGame = (e) => {
@@ -22,7 +23,7 @@ const startGame = (e) => {
     m = "minimax"
   }
 
-  const game = new Game(m, n, k, first_move, N);
+  const game = new Game(m, n, k, first_move, N, maxDepth);
   game.start();
 
   // hide start button

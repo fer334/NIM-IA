@@ -51,12 +51,13 @@ class Game {
   turn = 0;
   rowPlayed = -1;
 
-  constructor(mode='1v1',n,k,turn,trainCount) {
+  constructor(mode='1v1',n,k,turn,trainCount,maxDepth=3) {
     this.turn = +turn;
     console.log(mode,n,k);
     this.rows = generateRows(n,k);
     console.log(this.rows);
     this.mode = mode;
+    this.maxDepth = maxDepth;
     if(mode == "random"){
       this.ai = new AI();
     }else if (mode == "rl-random"){
@@ -114,7 +115,7 @@ class Game {
         // const { from, count } = this.ai.play(this.rows);
         let from, count;
         if (this.mode == 'minimax'){
-          const [state,action] = miniMaxDesicion(this.rows, 1)
+          const [state,action] = miniMaxDesicion(this.rows, 1, this.maxDepth)
           from = action[0]
           count = action[1]
         }else{
