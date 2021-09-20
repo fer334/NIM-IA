@@ -12,12 +12,11 @@ import {
     generateInitialState,
     K,
     N,
-    depthMax,
     startMax,
     InitialState
 } from './global.js'
 
-
+let depthMax
 /* previusNode was Max , previusNodeFacto=1 ,otherwise previusNodeFacto=-1 */
 const miniMaxValue=(state,previusNodeFactor)=>{
     depth+=1
@@ -73,8 +72,10 @@ const resetValues=()=>{
     nodes=[]
     nodeAmount=0
 }
-const miniMaxDesicion=(initialState,start)=>{
+const miniMaxDesicion=(initialState,start,depth=4)=>{
     resetValues()
+    depthMax=depth
+    //console.log('Profundida is',depthMax)
     if (start==1)miniMaxValue([...initialState],-1)
     else miniMaxValue(initialState,1)
     let nextNode=1

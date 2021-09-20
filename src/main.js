@@ -91,31 +91,33 @@ class Main{
     
 }
 class MainMiniMax{
-    constructor(initialState){
+    constructor(initialState,depth=2){
         this.initialState=initialState
+        this.depthMax=depth
     }
     play(){
         let start= new Date().getTime() //Tiempo de inicio del algoritmo
-        let [state,action]=miniMaxDesicion(this.initialState,1)
+        let [state,action]=miniMaxDesicion(this.initialState,1,this.depthMax)
         let end= new Date().getTime() // Tiempo que termina el algoritmo
         let time=end-start
-        console.log(`La judada a tomar es  [${state}][${action}]`)
+        console.log(`La jugada a tomar es  [${state}][${action}]`)
         console.log(`El Tiempo que tarda en milisegundos  es`,time)
         console.log(`Cantidade de nodos expandidos`,amountMiniMax)
     }
 }
 class MainPoda{
 
-    constructor(initialState){
+    constructor(initialState,depth=2){
         this.initialState=initialState
+        this.depthMax=depth
     }
 
     play(){
         let start= new Date().getTime() //Tiempo de inicio del algoritmo
-        let[state,action]=miniMaxDesicionPoda(this.initialState,1)
+        let[state,action]=miniMaxDesicionPoda(this.initialState,1,this.depthMax)
         let end= new Date().getTime() // Tiempo que termina el algoritmo
         let time=end-start
-        console.log(`La judada a tomar es  [${state}][${action}]`)
+        console.log(`La jugada a tomar es  [${state}][${action}]`)
         console.log(`El Tiempo que tarda en milisegundos  es`,time)
         console.log(`Cantidade de nodos expandidos`,amountPoda)
     }
@@ -123,7 +125,7 @@ class MainPoda{
 
 
 
-let option=1
+let option=2
 //1-- RL
 //2--MiniMax
 //3--MiniMax con Poda
@@ -135,11 +137,11 @@ if (option==1){
     console.log(rlPlayer.lookTable)
     
 }else if(option==2){
-    const m = new MainMiniMax(gameState)
+    const m = new MainMiniMax(gameState,4)
     m.play()
 }
 else if(option==3){
-    const m = new MainPoda(gameState)
+    const m = new MainPoda(gameState,4)
     m.play()
 }
 
