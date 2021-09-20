@@ -7,6 +7,7 @@ const startGame = (e) => {
   const k = document.getElementById('k').value;
   const N = document.getElementById('N').value;
   const first_move = document.getElementById('first_move').value;
+  const maxDepth  = document.getElementById('maxDepth').value;
   
   let m = "";
   if (mode == 1){
