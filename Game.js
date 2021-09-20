@@ -65,7 +65,7 @@ class Game {
       this.ai = m.train(1)
     }else if (mode == "rl-minimax"){
       const m = new Main(trainCount)
-      this.ai = m.train(2)
+      this.ai = m.train(2, maxDepth)
     }else if(mode == "minimax"){
       // this.ai = new MiniMax()
       // se calcula otro lado

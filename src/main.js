@@ -71,7 +71,7 @@ class Main{
         }
     }
 
-    train(strategy){
+    train(strategy,maxDepth=3){
         console.log("Training...")
         const state = [...gameState]
         const rl = new RLAgent(0.7, 0.5, state)
@@ -84,7 +84,7 @@ class Main{
         }else if( strategy==2){
             for (let i = 0; i < this.N; i++) {
                 const initialState = [...state]
-                this.jugarVsMiniMax(initialState,rl,start)
+                this.jugarVsMiniMax(initialState,rl,start,maxDepth)
             }
         }
         return rl
