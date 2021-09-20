@@ -1,10 +1,11 @@
 import RLAgent from "./RL.js";
-import { miniMaxDesicion } from "./minMax.js";
+import { miniMaxDesicion,amountMiniMax } from "./minMax.js";
+import {miniMaxDesicionPoda,amountPoda} from "./Poda.js"
 
 import prompt from "prompt-sync"
 
 
-let gameState=[2,3,1,4,5]
+let gameState=[2,3,1,5]
 let inputText=prompt(({sigint: true}))
 class Main{
     
@@ -89,16 +90,58 @@ class Main{
     }
     
 }
+class MainMiniMax{
+    constructor(initialState){
+        this.initialState=initialState
+    }
+    play(){
+        let start= new Date().getTime() //Tiempo de inicio del algoritmo
+        let [state,action]=miniMaxDesicion(this.initialState,1)
+        let end= new Date().getTime() // Tiempo que termina el algoritmo
+        let time=end-start
+        console.log(`La judada a tomar es  [${state}][${action}]`)
+        console.log(`El Tiempo que tarda en milisegundos  es`,time)
+        console.log(`Cantidade de nodos expandidos`,amountMiniMax)
+    }
+}
+class MainPoda{
+
+    constructor(initialState){
+        this.initialState=initialState
+    }
+
+    play(){
+        let start= new Date().getTime() //Tiempo de inicio del algoritmo
+        let[state,action]=miniMaxDesicionPoda(this.initialState,1)
+        let end= new Date().getTime() // Tiempo que termina el algoritmo
+        let time=end-start
+        console.log(`La judada a tomar es  [${state}][${action}]`)
+        console.log(`El Tiempo que tarda en milisegundos  es`,time)
+        console.log(`Cantidade de nodos expandidos`,amountPoda)
+    }
+}
 
 
 
-
-console.log("Entrenaandooooo")
-const m = new Main(10000)
-console.log("Horaa de Jugar")
-//1 para jugar con Random
-//2 para jugar con MiniMAx (aun no anda bien)
-let rlPlayer=m.train(2)
+let option=1
+//1-- RL
+//2--MiniMax
+//3--MiniMax con Poda
+if (option==1){
+    const m = new Main(10000)
+    //1 para jugar con Random
+    //2 para jugar con MiniMAx (aun no anda bien)
+    let rlPlayer=m.train(2)
+    console.log(rlPlayer.lookTable)
+    
+}else if(option==2){
+    const m = new MainMiniMax(gameState)
+    m.play()
+}
+else if(option==3){
+    const m = new MainPoda(gameState)
+    m.play()
+}
 
 /*
 let Game=[...gameState]
