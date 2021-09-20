@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/fer334/NIM-IA/issues"
   },
-  "homepage": "https://github.com/fer334/NIM-IA#readme"
+  "homepage": "https://github.com/fer334/NIM-IA#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
 }

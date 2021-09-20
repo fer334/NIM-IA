@@ -1,12 +1,17 @@
 import RLAgent from "./RL.js";
 import { miniMaxDesicion } from "./minMax.js";
+
+import prompt from "prompt-sync"
+
+
+let gameState=[2,3,1,4,5]
+let inputText=prompt(({sigint: true}))
 class Main{
     
     constructor(N){
         this.N=N
     }
     gameEnd(state){
-        
         return state.every((i)=>i==0)
     }
 
@@ -24,13 +29,9 @@ class Main{
                 [lastState,action] = rl.play()
             }
             else [lastState,action] = rl.playDiversity()
-            //console.log('laastSa',lastState,'action',action)
             last[turn]={state:lastState,action:action}
             turn=(turn+1)%2
-            //console.log(`Previus ${lastState}, currently ${rl.state}`)
             if(this.gameEnd(rl.state)){
-                //actualizar el lookTable
-                //console.log('lastState',lastState,'laaasStaate',last[(turn+1)%2].state,last[(turn+1)%2].action)
                 rl.updateLookTable(lastState,action,1)
                 rl.updateLookTable(last[turn].state,last[turn].action,-1)
                 break;
@@ -54,28 +55,23 @@ class Main{
                 [lastState,action] = rl.play()
             }
             else{
-                [lastState,action] = miniMaxDesicion(rl.state,1)
+                [lastState,action] = miniMaxDesicion([...rl.state],1)
                 rl.state[action[0]]-=action[1]
             }
-            //console.log('laastSa',lastState,'action',action)
             last[turn]={state:lastState,action:action}
             turn=(turn+1)%2
-            //console.log(`Previus ${lastState}, currently ${rl.state}`)
             if(this.gameEnd(rl.state)){
-                //actualizar el lookTable
-                //console.log('lastState',lastState,'laaasStaate',last[(turn+1)%2].state,last[(turn+1)%2].action)
-                rl.updateLookTable(lastState,action,1)
-                rl.updateLookTable(last[turn].state,last[turn].action,-1)
+                rl.update(lastState,action,rl.state,1)
+                rl.update(last[turn].state,last[turn].action,rl.state,-1)
                 break;
             }else if (last[turn]){
                 rl.update(last[turn].state,last[turn].action,rl.state,0)
             }
-            
         }
     }
 
     train(strategy){
-        const state = [2,3]
+        const state = [...gameState]
         const rl = new RLAgent(0.7, 0.5, state)
         let start=1
         if(strategy==1){
@@ -89,22 +85,40 @@ class Main{
                 this.jugarVsMiniMax(initialState,rl,start)
             }
         }
-        
-         console.log('lookTable',rl.lookTable)
+        return rl
     }
     
 }
 
 
 
-// 2,3 suc -> 1,3 0,3 *2,2* *2,1* 2,0
-// 2,1 suc 
 
-
-
-const m = new Main(1000)
-
+console.log("Entrenaandooooo")
+const m = new Main(10000)
+console.log("Horaa de Jugar")
 //1 para jugar con Random
 //2 para jugar con MiniMAx (aun no anda bien)
-m.train(1)
+let rlPlayer=m.train(2)
 
+/*
+let Game=[...gameState]
+let turn=1
+let winner
+console.log("Gamee",Game)
+console.l
+while(!m.gameEnd(Game)){
+    winner=turn
+    if(turn==1){
+        let action = inputText(`Es tu turno, El estado de la Pila es ${Game}:  `);
+        action=action.split(',').map((item)=>Number(item))
+        Game[action[0]]-=action[1]
+    }else{
+        rlPlayer.state=[...Game]
+        rlPlayer.play(true)
+        Game=[...rlPlayer.state]
+    }
+    turn=(turn+1)%2
+}
+winner ? console.log("Gano el Humano") : console.log("Gano la computadora")
+
+    */

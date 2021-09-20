@@ -68,12 +68,16 @@ const miniMaxValue=(state,previusNodeFactor)=>{
   
     
 }
+const resetValues=()=>{
+     depth=-1
+    nodes=[]
+    nodeAmount=0
+}
 const miniMaxDesicion=(initialState,start)=>{
-    console.log(`Calculando la solucion, espere un momento...`,initialState)
+    resetValues()
     if (start==1)miniMaxValue([...initialState],-1)
     else miniMaxValue(initialState,1)
     let nextNode=1
-    console.log("---------Solucion Encontrada por Mini Max----------")
     //console.log(`Estado Inicial [${initialState}] con SumNim ${calculateHeuristhic(initialState)}`)
     while(nextNode){
         let value=nodes.find((item)=>item.current_id==nextNode)
@@ -85,11 +89,11 @@ const miniMaxDesicion=(initialState,start)=>{
     let desicion=nodes.find((item)=>item.current_id==1)
     let state=initialState
     let action=[desicion.row,desicion.amount]
-    console.log(`State ${state} Action ${action}`)
+    //console.log(`Jugada del Minimax  [${state}][${action}]`)
     return [state,action]
 }
 
 
 console.log('Heer')
-//miniMaxDesicion([0,0,0],1)
+//miniMaxDesicion([0,5],1)
 export  {miniMaxDesicion};
