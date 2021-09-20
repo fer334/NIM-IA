@@ -1,0 +1,23 @@
+{
+  "name": "nim-ia",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r   <a href=\"\" rel=\"noopener\">\r  <img width=200px height=200px src=\"https://i.imgur.com/6wj0hh6.jpg\" alt=\"Project logo\"></a>\r </p>",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fer334/NIM-IA.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fer334/NIM-IA/issues"
+  },
+  "homepage": "https://github.com/fer334/NIM-IA#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
