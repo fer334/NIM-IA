@@ -5,7 +5,7 @@ import {miniMaxDesicionPoda,amountPoda} from "./Poda.js"
 // import prompt from "prompt-sync"
 
 
-let gameState=[2,3,1,5]
+let gameState=[2,3,1,5,5,1,3,2]
 // let inputText=prompt(({sigint: true}))
 class Main{
     
@@ -89,7 +89,47 @@ class Main{
         }
         return rl
     }
-    
+    winner(game,rl){
+        let turn=0
+        let lastState=[...rl.state]
+        let w
+        let gameAxu=[...game]
+        while(!this.gameEnd(gameAxu)){
+            w=turn
+            if(turn==0){
+                rl.state=[...gameAxu]
+                let [state,action]=rl.play(true)
+                gameAxu[action[0]]-=action[1]
+                rl.state=[...lastState]
+                //console.log("GanoIA")
+            }else{
+                rl.state=[...gameAxu]
+                let [state,action]=rl.playDiversity()
+                gameAxu[action[0]]-=action[1]
+                rl.state=[...lastState]
+            }
+            turn=(turn+1)%2
+        }
+        return w
+    }
+
+    testRandom(rl,strategy=1){
+        console.log("Testiing...")
+        const state = [...gameState]
+        let winners=[0,0]
+        if(strategy==1){
+            for (let i = 0; i < this.N; i++) {
+                let w=this.winner(state,rl)
+                winners[w]+=1
+            }
+        }else if( strategy==2){
+            for (let i = 0; i < this.N; i++) {
+                const initialState = [...state]
+                this.jugarVsMiniMax(initialState,rl,start,maxDepth)
+            }
+        }
+        console.log(`La IA gano ${winners[0]} veces, random gano ${winners[1]} veces`)
+    }
 }
 class MainMiniMax{
     constructor(initialState,depth=2){
@@ -97,12 +137,12 @@ class MainMiniMax{
         this.depthMax=depth
     }
     play(){
-        let start= new Date().getTime() //Tiempo de inicio del algoritmo
+        let start= console.time("timeMin") //Tiempo de inicio del algoritmo//Tiempo de inicio del algoritmo
         let [state,action]=miniMaxDesicion(this.initialState,1,this.depthMax)
-        let end= new Date().getTime() // Tiempo que termina el algoritmo
+        let end= console.timeEnd("timeMin") // Tiempo que termina el algoritmo
         let time=end-start
         console.log(`La jugada a tomar es  [${state}][${action}]`)
-        console.log(`El Tiempo que tarda en milisegundos  es`,time)
+        //onsole.log(`El Tiempo que tarda en milisegundos  es`,time)
         console.log(`Cantidade de nodos expandidos`,amountMiniMax)
     }
 }
@@ -114,38 +154,46 @@ class MainPoda{
     }
 
     play(){
-        let start= new Date().getTime() //Tiempo de inicio del algoritmo
+        let start= console.time("timePoda") //Tiempo de inicio del algoritmo
         let[state,action]=miniMaxDesicionPoda(this.initialState,1,this.depthMax)
-        let end= new Date().getTime() // Tiempo que termina el algoritmo
+        let end= console.timeEnd("timePoda") // Tiempo que termina el algoritmo
         let time=end-start
         console.log(`La jugada a tomar es  [${state}][${action}]`)
-        console.log(`El Tiempo que tarda en milisegundos  es`,time)
+        //console.log(`El Tiempo que tarda en milisegundos  es`,time)
         console.log(`Cantidade de nodos expandidos`,amountPoda)
     }
 }
 
 
 
-let option=2
+let option=1
 //1-- RL
 //2--MiniMax
 //3--MiniMax con Poda
 if (option==1){
-    const m = new Main(10000)
+    const m = new Main(300000)
     //1 para jugar con Random
     //2 para jugar con MiniMAx (aun no anda bien)
-    let rlPlayer=m.train(2)
-    console.log(rlPlayer.lookTable)
+    console.log("Entrenandoo")
+    let rlPlayer=m.train(1)
+    console.log("Testeando")
+    m.testRandom(rlPlayer)
+    //console.log(rlPlayer.lookTable)
     
 }else if(option==2){
-    const m = new MainMiniMax(gameState,4)
+    const m = new MainMiniMax(gameState,3)
     m.play()
 }
 else if(option==3){
-    const m = new MainPoda(gameState,4)
+    const m = new MainPoda(gameState,3)
     m.play()
 }
-
+/*
+const m = new MainMiniMax(gameState,5)
+m.play()
+const m2 = new MainPoda(gameState,5)
+m2.play()
+*/
 /*
 let Game=[...gameState]
 let turn=1
