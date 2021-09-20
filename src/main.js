@@ -6,7 +6,7 @@ import {miniMaxDesicionPoda,amountPoda} from "./Poda.js"
 
 
 let gameState=[2,3,1,5]
-let inputText=prompt(({sigint: true}))
+// let inputText=prompt(({sigint: true}))
 class Main{
     
     constructor(N){
