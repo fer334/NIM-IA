@@ -1,11 +1,12 @@
 class AI {
+  state;
   constructor() {}
-  play(rows) {
+  play() {
     const rowsWZeros = [];
-    for (let i = 0; i < rows.length; i++) {
-      if (rows[i] != 0) {
+    for (let i = 0; i < this.state.length; i++) {
+      if (this.state[i] != 0) {
         rowsWZeros.push({
-          value: rows[i],
+          value: this.state[i],
           position: i,
         });
       }

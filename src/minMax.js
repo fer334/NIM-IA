@@ -94,6 +94,6 @@ const miniMaxDesicion=(initialState,start)=>{
 }
 
 
-console.log('Heer')
+// console.log('Heer')
 //miniMaxDesicion([0,5],1)
 export  {miniMaxDesicion};

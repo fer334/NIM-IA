@@ -40,6 +40,9 @@
                                     <select name="two" id="mode" class="dropdown-select">
                                         <option value="1">1v1</option>
                                         <option value="2">1vAI-Random</option>
+                                        <option value="3">1vAI-RL Random</option>
+                                        <option value="4">1vAI-RL MiniMax</option>
+                                        <option value="5">1vAI-MiniMax</option>
                                         <!-- <option value="3"> :| </option> -->
                                     </select>
                                 </div>
@@ -49,10 +52,9 @@
                             <div class="row" style="width:350px" >
                                 <span class="px-3 ml-auto">First move:</span>
                                 <div class="dropdown dropdown-dark">
-                                    <select name="" id="fmove" class="dropdown-select">
-                                        <option value="0" default>Not works!!</option>
-                                        <option value="1">Player 1</option>
-                                        <option value="2">Player 2</option>
+                                    <select name="" id="first_move" class="dropdown-select">
+                                        <option value="0" default >Player 1</option>
+                                        <option value="1">Player 2</option>
                                         <!-- <option value="3"> :| </option> -->
                                     </select>
                                 </div>
@@ -72,6 +74,14 @@
                                 <div >
                                     <input id="k" class="input-dark" type="number" value="4"></input>
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                            <div class="row" style="width:350px" >
+                                <span class="px-3 ml-auto">Training count (N):</span>
+                                <div>
+                                    <input id="N" class="input-dark" type="number" value="1000"></input>
                                 </div>
                             </div>
                         </div>

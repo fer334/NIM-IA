@@ -1,4 +1,6 @@
 import AI from "./AI.js";
+import Main from './src/main.js'
+import {miniMaxDesicion} from './src/minMax.js'
 
 const init = (rows) => {
   // select the game class
@@ -49,13 +51,23 @@ class Game {
   turn = 0;
   rowPlayed = -1;
 
-  constructor(mode='1v1',n,k) {
+  constructor(mode='1v1',n,k,turn,trainCount) {
+    this.turn = +turn;
     console.log(mode,n,k);
     this.rows = generateRows(n,k);
     console.log(this.rows);
     this.mode = mode;
-    if(mode != "1v1"){
+    if(mode == "random"){
       this.ai = new AI();
+    }else if (mode == "rl-random"){
+      const m = new Main(trainCount)
+      this.ai = m.train(1)
+    }else if (mode == "rl-minimax"){
+      const m = new Main(trainCount)
+      this.ai = m.train(2)
+    }else if(mode == "minimax"){
+      // this.ai = new MiniMax()
+      // se calcula otro lado
     }
   }
 
@@ -99,7 +111,18 @@ class Game {
           document.getElementById("playerTurn").innerHTML = "IA turns";
         }
       } else {
-        const { from, count } = this.ai.play(this.rows);
+        // const { from, count } = this.ai.play(this.rows);
+        let from, count;
+        if (this.mode == 'minimax'){
+          const [state,action] = miniMaxDesicion(this.rows, 1)
+          from = action[0]
+          count = action[1]
+        }else{
+          this.ai.state=[...this.rows]
+          const [state,action] = this.ai.play(true)
+          from = action[0]
+          count = action[1]
+        }
         // console.log(from, count);
         this.take(from, count);
         this.turn = (this.turn + 1) % 2;
@@ -112,7 +135,8 @@ class Game {
       document.getElementById("playerTurn").innerHTML = `Player ${1+this.turn} turns`;
       document.getElementById("nextTurn").addEventListener("click", handle1v1);
     } else {
-      document.getElementById("playerTurn").innerHTML = this.aiTurn ?  "Player turns": "IA turns";
+      console.log(this.turn, this.aiTurn);
+      document.getElementById("playerTurn").innerHTML = this.turn==0 ?  "Player turns": "IA turns";
       document.getElementById("nextTurn").addEventListener("click", handle1vAI);
     }
   }

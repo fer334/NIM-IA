@@ -1,11 +1,11 @@
 import RLAgent from "./RL.js";
 import { miniMaxDesicion } from "./minMax.js";
 
-import prompt from "prompt-sync"
+// import prompt from "prompt-sync"
 
 
 let gameState=[2,3,1,4,5]
-let inputText=prompt(({sigint: true}))
+// let inputText=prompt(({sigint: true}))
 class Main{
     
     constructor(N){
@@ -71,6 +71,7 @@ class Main{
     }
 
     train(strategy){
+        console.log("Training...")
         const state = [...gameState]
         const rl = new RLAgent(0.7, 0.5, state)
         let start=1
@@ -93,12 +94,13 @@ class Main{
 
 
 
-console.log("Entrenaandooooo")
-const m = new Main(10000)
-console.log("Horaa de Jugar")
-//1 para jugar con Random
-//2 para jugar con MiniMAx (aun no anda bien)
-let rlPlayer=m.train(2)
+// console.log("Entrenaandooooo")
+// const m = new Main(10000)
+// console.log("Horaa de Jugar")
+// //1 para jugar con Random
+// //2 para jugar con MiniMAx (aun no anda bien)
+// let rlPlayer=m.train(2)
+// console.log(rlPlayer.lookTable)
 
 /*
 let Game=[...gameState]
@@ -122,3 +124,5 @@ while(!m.gameEnd(Game)){
 winner ? console.log("Gano el Humano") : console.log("Gano la computadora")
 
     */
+
+export default Main;
