@@ -23,20 +23,8 @@ const startGame = (e) => {
 }
 
 const restartGame = (e) => {
-  // hide game
-  console.log('hoal');
-  document.getElementsByClassName('cart-item-info')[0].style.display='none'
-  const game = document.getElementsByClassName('game')[0]
-  const gamediv = document.
-  game.parentElement.append("<div class='game'></div>")
-  game.parentElement.removeChild(game)
-  //hide restart button
-  document.getElementById('restart').style.display = 'none';
-  // show start button
-  document.getElementById('start').style.display = '';
-
-  // startGame();
-  document.getElementsByClassName('cart-item-info')[0].style.display=''
+  // reload page
+  window.location.reload()
 
 
 
