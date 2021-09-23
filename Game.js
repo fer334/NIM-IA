@@ -190,3 +190,5 @@ class Game {
 // console.log("Game.js loaded");
 // console.log(generateRows(5,5));
 export default Game;
+
+export { generateRows };

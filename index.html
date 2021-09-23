@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NIM GAME</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- get bootstrap js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <!-- insert index.js -->
@@ -29,81 +33,157 @@
                         </div>
                     </div>
                 </div>
-                <hr class="my-4">
                 <!-- // bootstrap aling row to right -->
-                <div id="options">
-                    <div class="row" >
-                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
-                            <div class="row" style="width:350px" >
-                                <span class="px-3 ml-auto">Game mode:</span>
-                                <div class="dropdown dropdown-dark">
-                                    <select name="two" id="mode" class="dropdown-select">
-                                        <option value="1">1 vs 1</option>
-                                        <option value="2">1 vs Random</option>
-                                        <option value="3">1 vs RL-Agent Random Training</option>
-                                        <option value="4">1 vs RL-Agent MiniMax Training</option>
-                                        <option value="5">1 vs MiniMax</option>
-                                        <!-- <option value="3"> :| </option> -->
-                                    </select>
+               
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav>
+                            <div class="nav nav-tabs bg-transparent" id="nav-tab" role="tablist">
+                                <a class="nav-link active bg-dark" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Game</a>
+                                <a class="nav-link bg-dark" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Comparisons</a>
+                                <a class="nav-link bg-dark" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">More...</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div id="options">
+                                <div class="row pt-4" >
+                                    <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                                        <div class="row" style="width:350px" >
+                                            <span class="px-3 ml-auto">Game mode:</span>
+                                            <div class="dropdown dropdown-dark">
+                                                <select name="two" id="mode" class="dropdown-select">
+                                                    <option value="1">1 vs 1</option>
+                                                    <option value="2">1 vs Random</option>
+                                                    <option value="3">1 vs RL-Agent Random Training</option>
+                                                    <option value="4">1 vs RL-Agent MiniMax Training</option>
+                                                    <option value="5">1 vs MiniMax</option>
+                                                    <!-- <option value="3"> :| </option> -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                                        <div class="row" style="width:350px" >
+                                            <span class="px-3 ml-auto">First move:</span>
+                                            <div class="dropdown dropdown-dark">
+                                                <select name="" id="first_move" class="dropdown-select">
+                                                    <option value="0" default >Player 1</option>
+                                                    <option value="1">Player 2</option>
+                                                    <!-- <option value="3"> :| </option> -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                                        <div class="row" style="width:350px" >
+                                            <span class="px-3 ml-auto">Rows (n):</span>
+                                            <div>
+                                                <input id="n" class="input-dark" type="number" value="4"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                                        <div class="row" style="width:350px" >
+                                            <span class="px-3 ml-auto">Objects (k):</span>
+                                            <div >
+                                                <input id="k" class="input-dark" type="number" value="4"></input>
+            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                                        <div class="row" style="width:350px" >
+                                            <span class="px-3 ml-auto">Training count (N):</span>
+                                            <div>
+                                                <input id="N" class="input-dark" type="number" value="1000"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                                        <div class="row" style="width:350px" >
+                                            <span class="px-3 ml-auto">Max depth:</span>
+                                            <div>
+                                                <input id="maxDepth" class="input-dark" type="number" value="4"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="text-center pt-4">
+                                            <button class="btn btn-dark align-center" id="start">start game!</button>
+                                        </div>
+                                        <div class="text-center pt-4">
+                                            <button class="btn btn-dark align-center" id="restart" style="display: none;">restart!</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
-                            <div class="row" style="width:350px" >
-                                <span class="px-3 ml-auto">First move:</span>
-                                <div class="dropdown dropdown-dark">
-                                    <select name="" id="first_move" class="dropdown-select">
-                                        <option value="0" default >Player 1</option>
-                                        <option value="1">Player 2</option>
-                                        <!-- <option value="3"> :| </option> -->
-                                    </select>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="row pt-4">
+                                <h6>Generate state with n, k:</h6>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                                    <div class="row" style="width:350px" >
+                                        <span class="px-3 ml-auto">Rows (n):</span>
+                                        <div>
+                                            <input id="cn" class="input-dark" type="number" value="4"></input>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                                    <div class="row" style="width:350px" >
+                                        <span class="px-3 ml-auto">Objects (k):</span>
+                                        <div >
+                                            <input id="ck" class="input-dark" type="number" value="4"></input>
+        
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
-                            <div class="row" style="width:350px" >
-                                <span class="px-3 ml-auto">Rows (n):</span>
-                                <div>
-                                    <input id="n" class="input-dark" type="number" value="4"></input>
+                            <div class="row">
+                                <h6>Compare specific depths (optional):</h6>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                                    <div class="row" style="width:350px" >
+                                        <span class="px-3 ml-auto">Minimax (d1):</span>
+                                        <div>
+                                            <input id="d1" class="input-dark" type="number" value=""></input>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
+                                    <div class="row" style="width:350px" >
+                                        <span class="px-3 ml-auto">Alpha–beta P (d2):</span>
+                                        <div >
+                                            <input id="d2" class="input-dark" type="number" value=""></input>
+        
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
-                            <div class="row" style="width:350px" >
-                                <span class="px-3 ml-auto">Objects (k):</span>
-                                <div >
-                                    <input id="k" class="input-dark" type="number" value="4"></input>
+                            <div class="col-md-12">
+                                <button class="btn btn-dark align-center" id="sim">Compare!</button>
+                            </div>
+                            <div class="text-center pt-4">
+                                <button class="btn btn-dark align-center" id="crestart" style="display: none;">restart!</button>
+                            </div>
+                            <!-- <hr class="my-4"> -->
+                            <div class="row">
+                                <h6 id="state"></h6>
+                            </div>
+                            <div id="sim-container" class="col-md-12">
 
-                                </div>
                             </div>
+                            
                         </div>
-                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
-                            <div class="row" style="width:350px" >
-                                <span class="px-3 ml-auto">Training count (N):</span>
-                                <div>
-                                    <input id="N" class="input-dark" type="number" value="1000"></input>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 p-2 d-flex justify-content-center" >
-                            <div class="row" style="width:350px" >
-                                <span class="px-3 ml-auto">Max depth:</span>
-                                <div>
-                                    <input id="maxDepth" class="input-dark" type="number" value="4"></input>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="text-center pt-4">
-                                <button class="btn btn-dark align-center" id="start">start!</button>
-                            </div>
-                            <div class="text-center pt-4">
-                                <button class="btn btn-dark align-center" id="restart" style="display: none;">restart!</button>
-                            </div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
                         </div>
                     </div>
-                    <hr class="my-4">
                 </div>
+                <hr class="my-4">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="cart-container">
@@ -122,7 +202,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="cart-container">
-                            <button id="nextTurn" class="btn btn-dark">End turn</button>
+                            <button id="nextTurn" class="btn btn-dark mt-2" style="display: none;">End turn</button>
                         </div>
                     </div>
                 </div>

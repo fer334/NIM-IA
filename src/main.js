@@ -100,11 +100,11 @@ class MainMiniMax{
         let start= new Date().getTime() //Tiempo de inicio del algoritmo
         let [state,action]=miniMaxDesicion(this.initialState,1,this.depthMax)
         let end= new Date().getTime() // Tiempo que termina el algoritmo
-        let time=end-start
-        console.log(`La jugada a tomar es  [${state}][${action}]`)
-        console.log(`El Tiempo que tarda en milisegundos  es`,time)
-        console.log(`Cantidade de nodos expandidos`,amountMiniMax)
-        return [amountMiniMax,time]
+        let time=(end-start)
+        // console.log(`La jugada a tomar es  [${state}][${action}]`)
+        // console.log(`El Tiempo que tarda en milisegundos  es`,time)
+        // console.log(`Cantidade de nodos expandidos`,amountMiniMax)
+        return [time,amountMiniMax]
     }
 }
 class MainPoda{
@@ -118,10 +118,10 @@ class MainPoda{
         let start= new Date().getTime() //Tiempo de inicio del algoritmo
         let[state,action]=miniMaxDesicionPoda(this.initialState,1,this.depthMax)
         let end= new Date().getTime() // Tiempo que termina el algoritmo
-        let time=end-start
-        console.log(`La jugada a tomar es  [${state}][${action}]`)
-        console.log(`El Tiempo que tarda en milisegundos  es`,time)
-        console.log(`Cantidade de nodos expandidos`,amountPoda)
+        let time=(end-start)
+        // console.log(`La jugada a tomar es  [${state}][${action}]`)
+        // console.log(`El Tiempo que tarda en milisegundos  es`,time)
+        // console.log(`Cantidade de nodos expandidos`,amountPoda)
         return [time,amountPoda]
     }
 }
