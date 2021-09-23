@@ -104,6 +104,7 @@ class MainMiniMax{
         console.log(`La jugada a tomar es  [${state}][${action}]`)
         console.log(`El Tiempo que tarda en milisegundos  es`,time)
         console.log(`Cantidade de nodos expandidos`,amountMiniMax)
+        return [amountMiniMax,time]
     }
 }
 class MainPoda{
@@ -121,12 +122,13 @@ class MainPoda{
         console.log(`La jugada a tomar es  [${state}][${action}]`)
         console.log(`El Tiempo que tarda en milisegundos  es`,time)
         console.log(`Cantidade de nodos expandidos`,amountPoda)
+        return [time,amountPoda]
     }
 }
 
 
 
-let option=2
+let option=4
 //1-- RL
 //2--MiniMax
 //3--MiniMax con Poda
@@ -170,3 +172,5 @@ winner ? console.log("Gano el Humano") : console.log("Gano la computadora")
     */
 
 export default Main;
+export { MainPoda};
+export {MainMiniMax};

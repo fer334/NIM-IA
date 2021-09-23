@@ -1,6 +1,7 @@
 import Game from "./Game.js";
 import { depthMax } from "./src/global.js";
-
+import {MainPoda} from "./src/main.js";
+import {MainMiniMax} from "./src/main.js";
 
 const startGame = (e) => {
   const mode = document.getElementById("mode").value;
@@ -35,6 +36,12 @@ const startGame = (e) => {
 const restartGame = (e) => {
   // reload page
   window.location.reload()
+}
+const minAndPoda=(state,depthMin,depthPoda)=>{
+    let min=new MainMiniMax(state,depthMin)
+    let mainVector=min.play() //0->time; 1->amount
+    let minPoda=new MainPoda(state,depthPoda)
+    let podaVector=min.play()
 }
 
 
