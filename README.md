@@ -3,7 +3,7 @@
  <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
 </p>
 
-<h3 align="center">Project Title</h3>
+<h3 align="center">NIM IA</h3>
 
 <div align="center">
 
@@ -15,10 +15,14 @@
 </div>
 
 ---
+Nim es un juego en el que dos jugadores se turnan para quitar objetos de distintas filas. En cada turno, un jugador debe eliminar al menos un objeto y puede eliminar cualquier número de objetos siempre que todos provengan de la misma fila. El objetivo del juego es tomar el último objeto.
+### Grupo: 5
 
-<p align="center"> Few lines describing your project.
-    <br> 
-</p>
+### Integrantes:
+- Jesús Roman.
+- Fernando Ríos.
+- Nicolas Chamorro.
+- Gerardo Cabrera.
 
 ## 📝 Table of Contents
 
