@@ -62,10 +62,14 @@ class Game {
       this.ai = new AI();
     }else if (mode == "rl-random"){
       const m = new Main(trainCount)
-      this.ai = m.train(1)
+      const qrate = document.getElementById('qrate').value
+      const alpha = document.getElementById('alpha').value
+      this.ai = m.train(1,0,qrate,alpha)
     }else if (mode == "rl-minimax"){
       const m = new Main(trainCount)
-      this.ai = m.train(2, maxDepth)
+      const qrate = document.getElementById('qrate').value
+      const alpha = document.getElementById('alpha').value
+      this.ai = m.train(2, maxDepth,qrate,alpha)
     }else if(mode == "minimax"){
       // this.ai = new MiniMax()
       // se calcula otro lado
@@ -126,9 +130,9 @@ class Game {
         }
         // console.log(from, count);
         this.take(from, count);
+        handleGameOver(this.rows, this.turn);
         this.turn = (this.turn + 1) % 2;
         this.rowPlayed = -1;
-        handleGameOver(this.rows, this.turn);
         document.getElementById("playerTurn").innerHTML = "Player turns";
       }
     };

@@ -71,10 +71,10 @@ class Main{
         }
     }
 
-    train(strategy,maxDepth=3){
+    train(strategy,maxDepth=3,qrate=0.7, alpha=0.5){
         console.log("Training...")
         const state = [...gameState]
-        const rl = new RLAgent(0.7, 0.5, state)
+        const rl = new RLAgent(qrate, alpha, state)
         let start=1
         if(strategy==1){
             for (let i = 0; i < this.N; i++) {
